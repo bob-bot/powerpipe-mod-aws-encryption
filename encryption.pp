@@ -1,8 +1,3 @@
-locals {
-  aws_encryption_common_tags = merge(local.aws_compliance_common_tags, {
-    encryption         = "true"
-  })
-}
 benchmark "aws_encryption" {
   title       = "AWS Encryption"
   description = "Controls relevant to the top encryption controls."
@@ -11,10 +6,6 @@ benchmark "aws_encryption" {
     benchmark.encryption_in_transit
   ]
 }
-
-  tags = merge(local.aws_encryption_common_tags, {
-    type = "Benchmark"
-  })
 
 benchmark "encryption_at_rest" {
   title = "1. Encryption at Rest"
@@ -58,7 +49,7 @@ benchmark "encryption_at_rest" {
     aws_compliance.control.glue_job_s3_encryption_enabled,
     aws_compliance.control.kinesis_firehose_delivery_stream_server_side_encryption_enabled,
     aws_compliance.control.kinesis_stream_encrypted_with_kms_cmk,
-    aws_compliance.control.kinesis_stream_server_side_encryption_enabled
+    aws_compliance.control.kinesis_stream_server_side_encryption_enabled,
     aws_compliance.control.log_group_encryption_at_rest_enabled,
     aws_compliance.control.neptune_db_cluster_encryption_at_rest_enabled,
     aws_compliance.control.neptune_db_cluster_snapshot_encryption_at_rest_enabled,
@@ -77,9 +68,8 @@ benchmark "encryption_at_rest" {
     aws_compliance.control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     aws_compliance.control.sagemaker_notebook_instance_encrypted_with_kms_cmk,
     aws_compliance.control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    aws_compliance.control.sagemaker_training_job_volume_and_data_encryption_enabled
+    aws_compliance.control.sagemaker_training_job_volume_and_data_encryption_enabled,
     aws_compliance.control.secretsmanager_secret_encrypted_with_kms_cmk,
-    aws_compliance.control.sns_topic_encrypted_at_rest
     aws_compliance.control.sns_topic_encrypted_at_rest,
     aws_compliance.control.sqs_queue_encrypted_at_rest,
     aws_compliance.control.sqs_queue_encrypted_with_kms_cmk,
@@ -91,7 +81,7 @@ benchmark "encryption_at_rest" {
 benchmark "encryption_in_transit" {
   title = "2. Encryption in Transit"
   children = [
-   aws_compliance.control.apigateway_rest_api_stage_use_ssl_certificate
+   aws_compliance.control.apigateway_rest_api_stage_use_ssl_certificate,
    aws_compliance.control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
    aws_compliance.control.cloudfront_distribution_encryption_in_transit_enabled,
    aws_compliance.control.cloudfront_distribution_latest_tls_version,
@@ -108,7 +98,7 @@ benchmark "encryption_in_transit" {
    aws_compliance.control.elb_tls_listener_protocol_version,
    aws_compliance.control.es_domain_encrypted_using_tls_1_2,
    aws_compliance.control.glue_connection_ssl_enabled,
-   aws_compliance.control.msk_cluster_encryption_in_transit_with_tls_enabled
+   aws_compliance.control.msk_cluster_encryption_in_transit_with_tls_enabled,
    aws_compliance.control.opensearch_domain_https_required,
    aws_compliance.control.redshift_cluster_encryption_in_transit_enabled,
    aws_compliance.control.s3_bucket_enforces_ssl,
