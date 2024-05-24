@@ -8,7 +8,7 @@ benchmark "aws_encryption" {
 }
 
 benchmark "encryption_at_rest" {
-  title = "1. Encryption at Rest"
+  title = "1. Encryption at Rest - Test"
   children = [
     aws_compliance.control.apigateway_stage_cache_encryption_at_rest_enabled,
     aws_compliance.control.athena_workgroup_encryption_at_rest_enabled,
